@@ -9,9 +9,11 @@
   --secondary-color: #FFF59D;
   --surface-color: #ffffff;
   --border-color: #e5e7eb;
-
+  --form-bg:#f0f0f0;
   --text-muted: #6b7280;
- ;
+  --error: #922203;
+  --valid: #05470d;
+ 
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -27,7 +29,8 @@ body{
 }
 
 a{
-  color: inherit
+  color: inherit;
+  font-family: inherit;
 }
 
 button{
@@ -35,4 +38,5 @@ button{
   outline: none;
   cursor: pointer;
   background-color: transparent;
+  font-family: inherit;
 }

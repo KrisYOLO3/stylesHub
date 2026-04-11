@@ -107,5 +107,27 @@
   transform: translate(3px, -3px);
 }
 
+.formContent{
+  background-color: var(--form-bg);
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding: 40px 0 0 ;
+}
+
+.formContent::before {
+  content: ''; /* Обязательно для псевдоэлементов */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  
+  /* Подбираем цвет и высоту полосы */
+  height: 40%; /* Полоса занимает 40% высоты сверху, как на скрине */
+  background-color: #d8eded; /* Твой светло-зеленый/мятный цвет */
+  
+  z-index: 1; /* Полоса должна быть выше фона, но ниже формы */
+}
+
 
 

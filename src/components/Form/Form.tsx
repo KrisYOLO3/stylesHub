@@ -1,60 +1,114 @@
 import CustomInput from '../CustomInput'
 import style from './Form.module.css'
-import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {useForm, type SubmitHandler} from 'react-hook-form'
 import CustomButton from '../CustomButton'
+import {useAppSelector,useAppDispatch  } from '../../hooks/hook'
+import {authFormState, toggleMode, loginSuccess} from '../../slices/formSlice'
 
 export default function Form() {
 
-  const [login, setLogin] = useState(true)
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const formState = useAppSelector(authFormState)
+  const { isLoginMode } = formState;
 
-    type LoginForm = {
+
+  type LoginForm = {
     name: string,
     email : string,
     password: string,
+}
+  const {register, handleSubmit, control, formState:{errors}} = useForm<LoginForm>()
+
+    const submit : SubmitHandler<LoginForm> = (data)=>{
+
+    const usersInStorge = localStorage.getItem('usersData')
+    const users = usersInStorge ? JSON.parse(usersInStorge) : [ ]
+
+    if(!isLoginMode){
+      const user = {name: data.name, email: data.email, password: data.password}
+      const updatedUsers = [...users, user]
+      localStorage.setItem('usersData', JSON.stringify(updatedUsers))
+      dispatch(loginSuccess(user))
+      return navigate('/shop');
+    }
+
+    const existingUser = users.find((user)=> user.name === data.name)
+    if(existingUser){
+      dispatch(loginSuccess(existingUser))
+      return navigate('/shop');
+    }else{
+      dispatch(toggleMode())
+    }
+ }
+
+  const validateName = {
+    required: 'Name is required',
+    minLength: {
+      value: 5,
+      message: 'Name is too short (min 2 chars)'
+    },
+    maxLength:{
+      value: 20,
+      message: 'Name is too long (max 20 chars)'
+    },
+    pattern: {
+      value: /^[A-Za-zА-Яа-яЁё\s]+$/,
+      message: 'Only letters are allowed'
+    }
   }
-  const {register, handleSubmit, control, formState:{ errors}} = useForm<LoginForm>()
 
-  const submit : SubmitHandler<LoginForm> = (data)=>{
+  const validatePassword = {
+    required: 'Password is required',
+    minLength: {
+      value: 8,
+      message: 'Password must be at least 8 characters'
+    },
+    maxLength: {
+      value: 30,
+      message: 'Password is too long (max 30 chars)'
+    },
+    pattern: {
+      value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+      message: 'Need at least one uppercase letter and one special character (!@#$%^&*)'
+    }
 
- }
-
- const handleForm = (e)=>{
-    e.preventDefault()
-    
- }
-
- const handleLogin = ()=>{
-  setLogin(prev=> !prev)
- }
+  }
 
 
 
   return (
-    <div className={style.formWrapper}>
-        <form  onSubmit = {handleSubmit(submit)}>
-            <h2>{login ? 'Welcomr Back' : 'Create account' }</h2>
-            <CustomInput id='name' 
-                         placeholder='Enter your name' 
-                         type='text' 
-                         label='id'
-                         {...register('name', { required: 'Name is required' })}/>
-            {!login && <CustomInput id='email' 
-                                    placeholder='Enter your email' 
-                                    type='email' 
-                                    label='id'
-                                    {...register('email', { required: 'Email is required' })}/>}
-            {!login && <CustomInput id ='password'
-                                    type='password'
-                                    label = 'password' 
-                                    {...register('password', { required: 'Password is required' })}/>}
-            <CustomButton className={style.loginAndStart}>Login & Start Shopping</CustomButton>
-            <div>
-              <span>Not registered?</span>
-              <CustomButton className={style.signUp} onClick={handleLogin}>Sign up</CustomButton>
-            </div>
-        </form>
-
+    <div className = {style.formWrapper}>
+      <form  onSubmit = {handleSubmit(submit)} className={style.form}>
+        <h2>{isLoginMode ? 'Welcome Back' : 'Create account' }</h2>
+        <CustomInput id='name' 
+                      placeholder='Enter your name' 
+                      type='text' 
+                      label='name'
+                      className = {style.inputForm}
+                      {...register('name', validateName)}/>
+        {errors.name && <span className = {style.error}>{errors.name.message}</span>}
+        {!isLoginMode && <CustomInput id='email' 
+                                placeholder='Enter your email' 
+                                type='email' 
+                                label='id'
+                                className = {style.inputForm}
+                                {...register('email', { required: 'Email is required' })}/>}
+        {!isLoginMode && <CustomInput id ='password'
+                                type='password'
+                                label = 'password'
+                                className = {style.inputForm} 
+                                placeholder='Enter password'
+                                {...register('password', validatePassword)}/>}
+         {errors.password && <span className = {style.error}>{errors.password.message}</span>}
+        <CustomButton className={style.loginAndStart} type='submit'>Login & Start Shopping</CustomButton>
+      </form>
+      <div className={style.switchModeBtn}>
+        <span>{isLoginMode ? 'Not registered?' : 'Registered?'}</span>
+        <CustomButton className={style.signUp} onClick={()=>dispatch(toggleMode())}>{isLoginMode ? 'Sign Up' : 'Sign In'}</CustomButton>
+      </div>
     </div>
+ 
   )
 }

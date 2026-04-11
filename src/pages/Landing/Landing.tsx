@@ -3,8 +3,15 @@ import Header from '../../components/Header/Header'
 import CustomButton from '../../components/CustomButton'
 import  stylishMan from '../../images/stylishMan.jpg'
 import Form from '../../components/Form/Form'
+import {useAppDispatch } from '../../hooks/hook'
 
 export default function Landing() {
+
+  const dispatch = useAppDispatch()
+
+
+
+
   return (
     <>
       <div className= {style.landing}>
@@ -23,7 +30,7 @@ export default function Landing() {
             </main>    
           </div>
       </div>
-      <div className={style.loginSection}>
+      <div className={style.formContent}>
         <Form /> 
       </div>
     </>  

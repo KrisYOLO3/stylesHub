@@ -1,4 +1,76 @@
 
-/* 
-#d1e7e5;  зеленый для блока  */
-/* #008080; кнопка старт */
+.formWrapper{
+  background-color: #f8f9fa; 
+  padding: 40px;
+  border-radius: 16px; 
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); 
+  width: 100%;
+  max-width: 500px;  
+  margin: 0 auto;   
+  position: relative;
+  z-index: 5;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+.form h2{
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+
+.inputForm{
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: white;
+  transition: border-color 0.2s;
+  margin: 10px 0 10px;
+}
+
+.inputForm:focus {
+  outline: none;
+  border-color:var( --primary-hover); 
+}
+
+.loginAndStart {
+  background-color: var(--primary-color); 
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 10px 0 20px;
+}
+
+.loginAndStart:hover {
+  background-color: var( --primary-hover);
+}
+
+.switchModeBtn{
+  text-align: center;
+}
+
+.signUp {
+  color: var( --primary-hover);
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.error{
+  color: var(--error)
+}
+
+
