@@ -5,8 +5,8 @@ type CustomInputProps = InputHTMLAttributes<HTMLInputElement> &{
 };
 
 const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(({id, placeholder, type, className, ...field}, ref)=>
-    <label htmlFor = {id}>
-        <input id={id} placeholder={placeholder} type={type} ref={ref} className={className} {...field} />
+    <label htmlFor = {id} className={className}>
+        <input id={id} placeholder={placeholder} type={type} ref={ref}  {...field} />
     </label>
 )
 

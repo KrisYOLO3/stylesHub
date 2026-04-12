@@ -1,17 +1,17 @@
 .header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0 20px;
-    width: 100%; 
-    height: 80px;
-    font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px 20px;
+  width: 100%; 
+  height: 80px;
+  font-size: 24px;
 }
 
 .header span{
-    font-weight: 700px;
-    display: block;
-    margin-left: 10px;
+  font-weight: 700px;
+  display: block;
+  margin-left: 10px;
 }
 
 .logoSymbol{
@@ -31,5 +31,34 @@
     width: 34px;
     height: 34px;
     margin-right: 5px;
+}
+
+.searchForm{
+  width: 400px;
+  margin-right: 80px;
+}
+
+.searchForm{
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.searchWrapper{
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.searchWrapper input{
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  margin-left: 8px;
+  padding: 8px 12px;
 }
 

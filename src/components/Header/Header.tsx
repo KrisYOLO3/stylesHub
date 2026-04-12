@@ -1,9 +1,17 @@
 import style from '../Header/Header.module.css'
 import CustomButton from '../CustomButton'
 import { RiAccountPinCircleLine } from "react-icons/ri";
+import {useLocation} from 'react-router-dom'
+import CustomInput from '../CustomInput'
+import { CiSearch } from "react-icons/ci";
 
 
 export default function Header() {
+
+  const location = useLocation()
+  const path = location.pathname === '/shop'
+
+
   return (
     <header className={style.header}>
       
@@ -16,6 +24,13 @@ export default function Header() {
         </svg>
         <span className={style.logoName}>StyleHub</span>
       </div>
+
+      {path && (
+        <form className={style.searchForm}>
+          <CiSearch className={style.searchIcon}/>
+          <CustomInput id='search' placeholder='Search' type='text' className={style.searchWrapper}/>
+        </form>
+      )}
 
       <CustomButton className={style.account}>
         <RiAccountPinCircleLine className={style.accountBtn}/>

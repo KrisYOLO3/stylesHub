@@ -73,7 +73,14 @@ export default function Form() {
       value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
       message: 'Need at least one uppercase letter and one special character (!@#$%^&*)'
     }
+  }
 
+  const validateEmail = {
+    required: 'Email is required',
+    pattern: {
+    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+    message: 'Invalid email address'
+    }
   }
 
 
@@ -94,7 +101,7 @@ export default function Form() {
                                 type='email' 
                                 label='id'
                                 className = {style.inputForm}
-                                {...register('email', { required: 'Email is required' })}/>}
+                                {...register('email', validateEmail)}/>}
         {!isLoginMode && <CustomInput id ='password'
                                 type='password'
                                 label = 'password'
