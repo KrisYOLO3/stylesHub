@@ -25,7 +25,7 @@
   color: #1a1a1a;
 }
 
-.inputForm{
+.inputForm input{
   width: 100%;
   padding: 12px 16px;
   border: 1px solid #d1d1d1;
@@ -36,7 +36,7 @@
   margin: 10px 0 10px;
 }
 
-.inputForm:focus {
+.inputForm input:focus {
   outline: none;
   border-color:var( --primary-hover); 
 }

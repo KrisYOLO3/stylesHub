@@ -1,4 +1,19 @@
 .categories{
   flex: 0 0 350px;
-  padding-left: 40px;
+  padding: 40px 20px 0 40px;
+}
+
+.categories h2{
+  margin-bottom: 20px;
+}
+
+.categoryItem{
+  padding: 10px 15px;
+  background-color: transparent;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+
+.categoryItem.active{
+  background-color: var(--primary-color);
 }

@@ -5,6 +5,7 @@ import Landing from './pages/Landing/Landing';
 import {Provider} from 'react-redux'
 import Shop from './pages/Shop/Shop'
 import store from './store/store'
+import ShopItem from './components/ShopItem/ShopItem'
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
     <Provider store={store}>
       <Routes>
         <Route path='/' element = {<Landing/>}/>
-        <Route path='/Shop' element = {<Shop/>}/>
+        <Route path='/shop' element = {<Shop/>}/>
+        <Route path='/shop/:id' element = {<ShopItem/>}/>
       </Routes> 
     </Provider>
   )

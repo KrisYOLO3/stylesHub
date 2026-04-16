@@ -5,6 +5,7 @@ import Categories from '../../components/Categories/Categories'
 import ShoppingCart  from '../../components/ShoppingCart/ShoppingCart'
 
 export default function Shop() {
+
   return (
     <div className={style.shop}>
       <Header/>

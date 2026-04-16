@@ -1,16 +1,17 @@
 .shop{
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
 }
 
 .main{
+  display: flex;
   min-height: calc(100vh - 80px);
-  background-color: var( --bg-secondary);
+  background-color: var(--bg-secondary);
 }
 
 .mainWrapper{
   display: flex;
-
+  flex: 1;
 }
 
 .store{
@@ -20,9 +21,10 @@
 }
 
 .cartSidebar{
+  display: flex;
   flex: 0 0 350px;
   background-color: #617077;
-  padding: 20px 15px;
+  padding: 20px 15px;  
 }
 
 /* для карточки box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */

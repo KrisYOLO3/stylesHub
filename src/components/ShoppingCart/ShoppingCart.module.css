@@ -1,0 +1,4 @@
+.shoppingCart{
+  display: flex;
+  flex-direction: column;
+}

@@ -40,3 +40,7 @@ button{
   background-color: transparent;
   font-family: inherit;
 }
+
+ul{
+  list-style-type: none;
+}
