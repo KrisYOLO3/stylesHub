@@ -6,6 +6,12 @@ import CustomButton from '../CustomButton'
 import {useAppSelector,useAppDispatch  } from '../../hooks/hook'
 import {authFormState, toggleMode, loginSuccess} from '../../slices/formSlice'
 
+type User = {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export default function Form() {
 
   const navigate = useNavigate()
@@ -19,7 +25,7 @@ export default function Form() {
     email : string,
     password: string,
 }
-  const {register, handleSubmit, control, formState:{errors}} = useForm<LoginForm>()
+  const {register, handleSubmit, formState:{errors}} = useForm<LoginForm>()
 
     const submit : SubmitHandler<LoginForm> = (data)=>{
 
@@ -34,7 +40,7 @@ export default function Form() {
       return navigate('/shop');
     }
 
-    const existingUser = users.find((user)=> user.name === data.name)
+    const existingUser = users.find((user: User)=> user.name === data.name)
     if(existingUser){
       dispatch(loginSuccess(existingUser))
       return navigate('/shop');

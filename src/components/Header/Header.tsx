@@ -3,13 +3,15 @@ import CustomButton from '../CustomButton'
 import { RiAccountPinCircleLine } from "react-icons/ri";
 import {useLocation} from 'react-router-dom'
 import CustomInput from '../CustomInput'
-import { CiSearch } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci"
+import { useAppSelector } from '../../hooks/hook';
 
 
 export default function Header() {
 
   const location = useLocation()
   const path = location.pathname === '/shop'
+  const userName = useAppSelector(state=>state.authForm.userName)
 
 
   return (
@@ -34,7 +36,7 @@ export default function Header() {
 
       <CustomButton className={style.account}>
         <RiAccountPinCircleLine className={style.accountBtn}/>
-        ACCOUNT
+        {path ? `Hello, ${userName}` : `ACCAUNT`}
       </CustomButton>
           
         

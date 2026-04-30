@@ -1,6 +1,10 @@
 .categories{
   flex: 0 0 350px;
-  padding: 40px 20px 0 40px;
+  padding: 0 20px 0 40px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;  /* Запрещает  растягивать блок по высоте */
+  height: fit-content;
 }
 
 .categories h2{
@@ -14,6 +18,36 @@
   text-transform: capitalize;
 }
 
+.categoryItem:hover{
+  cursor: pointer;
+}
+
 .categoryItem.active{
   background-color: var(--primary-color);
+}
+
+.backBtn {
+  transition: opacity 0.3s ease; 
+  opacity: 1;
+  visibility: visible;
+  height: 40px; 
+  margin-bottom: 10px;
+  color: var(--primary-hover);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none; 
+}
+
+.backBtnWrapper{
+  height: 40px;
+}
+
+.backBtnArrow{
+  font-size: 20px;
 }

@@ -1,3 +1,66 @@
 .catalog{
   flex: 1;
+  padding: 40px 0 30px 0;
 }
+
+.catalogList{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.catalogListItem{
+  padding: 10px;
+  width: 30%;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.catalogListItem:hover{
+  transform: translateY(-5px);
+}
+
+.catalogItemWrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.catalogItemContent{
+  display: flex;
+}
+
+.catalogItemImg{
+  flex:1;
+  border-radius: 8px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+  margin: 0 15px 0 0;
+}
+
+.catalogItemImg img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catalogItemNotes{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex:1;
+}
+
+.addBtn{
+  width: 100%;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.addBtn:hover{
+  background-color: var(--primary-hover);
+}
+

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { RootState } from '../store/store';
 
 
 type AuthStateProps = {
@@ -33,6 +34,6 @@ const authSlice = createSlice({
     }
 })
 
-export const authFormState = (state)=> state.authForm // состояние, достаем из store
+export const authFormState = (state: RootState)=> state.authForm // состояние, достаем из store
 export const {toggleMode, loginSuccess} = authSlice.actions
 export const authFormReducer = authSlice.reducer // для  store

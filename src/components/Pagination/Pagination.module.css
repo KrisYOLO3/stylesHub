@@ -1,0 +1,18 @@
+.currentPageBtns{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prevBtn, .nextBtn{
+  padding: 10px 15px;
+  border: 1px solid #474646;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.currentPage{
+  margin: 0 10px 0 10px ;
+}

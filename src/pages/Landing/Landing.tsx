@@ -1,22 +1,13 @@
 import style from './Landing.module.css'
-import Header from '../../components/Header/Header'
 import CustomButton from '../../components/CustomButton'
 import  stylishMan from '../../images/stylishMan.jpg'
 import Form from '../../components/Form/Form'
-import {useAppDispatch } from '../../hooks/hook'
 
 export default function Landing() {
-
-  const dispatch = useAppDispatch()
-
-
-
-
   return (
     <>
       <div className= {style.landing}>
         <div className= {style.landingWrapper}>
-            <Header/>
             <main className= {style.main}>
               <section className={style.landingLeft}>
                 <h1>Elevate your everyday style</h1>
