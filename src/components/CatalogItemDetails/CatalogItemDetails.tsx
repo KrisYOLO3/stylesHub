@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 import { fetchProductById} from '../../slices/catalogSlice';
 import { useEffect } from 'react';
 import CustomButton from '../CustomButton';
-import {Link} from 'react-router-dom'
+import {Link, useSearchParams} from 'react-router-dom'
 
 
 export default function CatalogItemDetails(){
 
-    const { status, error, catalogItem, activeCategory} = useAppSelector(state=> state.catalog)
+    const { status, error, catalogItem} = useAppSelector(state=> state.catalog)
+    const [searchParams] = useSearchParams()
+    const activeCategory = searchParams.get('category')
 
     const { id } = useParams();
     const dispatch = useAppDispatch();

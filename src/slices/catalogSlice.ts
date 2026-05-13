@@ -1,48 +1,13 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import axios from 'axios';
+import {createSlice, createAsyncThunk, type PayloadAction} from '@reduxjs/toolkit'
 import type { RootState } from '../store/store';
-
-
-type ProductItem = {
-  id: number;
-  title: string;
-  image: string [];
-  brand: string;
-  price: string;
-  description: string;
-  thumbnail: string;
-  images: string [];
-  category: string;
-}
-
-type FetchProductsResponse ={
-  products: ProductItem[];
-  total: number;
-  skip: number;
-  limit: number;
-}
-
-type ShopState = {
-    products: ProductItem [];
-    categories: string [],
-    catalogItem: ProductItem | null;
-    activeCategory: string | null,
-    total: number, 
-    status: 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null | string,
-}
-type FetchProductsArgs = {
-  activeCategory: string | null;
-  skip: number;
-  limit: number;
-}
+import {productsService} from '../api/productsService';
+import {type ShopState, type FetchProductsResponse, type FetchProductsParams, type ProductItem, type FetchProductByIdParams} from '../types/types';
 
 
 const inintialState:ShopState  = {
     products: [],
     categories: [],
     catalogItem: null,
-    activeCategory: null,
     total: 0, 
     status: 'idle',
     error: null ,
@@ -52,15 +17,15 @@ const categoriesSlice = createSlice({
     name: 'products',
     initialState: inintialState,
     reducers: {
-        setActiveCategory:(state, action)=>{
-            state.activeCategory = action.payload
-        },
-        setCatalogItem:(state, action)=>{
+        setCatalogItem:(state, action:PayloadAction<ProductItem | null>)=>{
             state.catalogItem = action.payload
         },
     },
     extraReducers(builder) {
         builder
+
+              // fetch products
+
             .addCase(fetchProducts.pending, (state)=>{
                 state.status = 'loading'
             })
@@ -96,37 +61,28 @@ const categoriesSlice = createSlice({
 
 // load products
 
-const BASE_URL = 'https://dummyjson.com/products';
-
-export const fetchProducts = createAsyncThunk<FetchProductsResponse, FetchProductsArgs>('products/fetchProducts', async({activeCategory, skip, limit}, {signal})=>{
-    
-    const path =  activeCategory ?`/category/${activeCategory}` : '' 
-
-    const query = new URLSearchParams({
-        limit: String(limit),
-        skip: String(skip),
-    }).toString()
-    
-    const response = await axios.get(`${BASE_URL}${path}?${query}`)
-    return response.data
+export const fetchProducts = createAsyncThunk<FetchProductsResponse, FetchProductsParams>('products/fetchProducts', async(params, { signal })=>{
+    const response = await productsService.fetchProducts({...params, signal})
+    return response
 })
 
 // load products by id
 
-export const fetchProductById= createAsyncThunk('products/fetchProductById', async(id: number)=>{
-    const response = await axios.get(`${BASE_URL}/${id}`)
-    console.log(response.data)
-    return response.data
+export const fetchProductById = createAsyncThunk<ProductItem, number>('products/fetchProductById', async(id, {signal})=>{
+    const response = await productsService.fetchProductById({id, signal})
+    console.log(response)
+    return response
 })
 
 // load categories
-
-export const fetchCategories = createAsyncThunk('products/fetchCategories', async()=>{
-    const response = await axios.get('https://dummyjson.com/products/categories')
-    console.log(response.data)
-    return response.data
+export const fetchCategories = createAsyncThunk<string[]>('products/fetchCategories', async()=>{
+    const response = await productsService.fetchCategories()
+    console.log(response)
+    return response
 })
+
+
 
 export const  productsReducer = categoriesSlice.reducer
 export const shopState = (state: RootState)=> state.catalog
-export const {setActiveCategory, setCatalogItem} = categoriesSlice.actions
+export const {setCatalogItem} = categoriesSlice.actions

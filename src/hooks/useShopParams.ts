@@ -1,11 +1,12 @@
-import { useSearchParams} from 'react-router-dom'
+import { useSearchParams, useNavigate} from 'react-router-dom'
 import {useAppDispatch} from './hook'
-import {setActiveCategory, setCatalogItem} from '../slices/catalogSlice'
+import {setCatalogItem} from '../slices/catalogSlice'
 
 export  function useShopParams(){
 
     const dispatch = useAppDispatch()
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
+    const navigate = useNavigate();
     const currentPage = Number(searchParams.get('page')) || 1;
     const activeCategory = searchParams.get('category')
 
@@ -17,11 +18,9 @@ export  function useShopParams(){
             params.set('page', String(nextPage))
         }
 
-        if(activeCategory){
-            params.delete('page')
-        }
-       
-        setSearchParams(params)
+        const queryString = params.toString()  
+        const path = queryString ? `/shop?${queryString}` : `/shop`     
+        navigate(`shop${path}`, { replace: true })  
     }
 
 
@@ -29,17 +28,18 @@ export  function useShopParams(){
         const params = new URLSearchParams(searchParams)
         if (category === null){
             params.delete('category')
-            dispatch(setCatalogItem(null)); 
         }else{
             params.set('category', category)
         }
+
+        dispatch(setCatalogItem(null)); 
         params.delete('page')
-        setSearchParams(params)
-        dispatch(setActiveCategory(category))  
-        
+        params.delete('search')
+        const queryString = params.toString()  
+        const path = queryString ? `/shop?${queryString}` : `/shop`     
+        navigate(`${path}`, { replace: true })  
     }
 
-    return { currentPage, setPage, activeCategory, setCategory  };
+    return { currentPage, setPage, activeCategory, setCategory  }; 
+ 
 }
-
-export const usePagination = useShopParams;

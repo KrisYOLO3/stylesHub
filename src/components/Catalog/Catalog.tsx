@@ -2,18 +2,24 @@ import style from './Catalog.module.css'
 import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 import {fetchProducts} from '../../slices/catalogSlice'
 import {useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import CustomButton from '../CustomButton'
 import Pagination from '../Pagination/Pagination'
-import {usePagination} from '../../hooks/useShopParams'
+import {useShopParams} from '../../hooks/useShopParams' 
+import { useSearchParams } from 'react-router-dom'
+import type { CartItemParams, ProductItem } from '../../types/types'
+import { addToCart } from '../../slices/cartSlice'
 
 
 
 export default function Catalog(){
 
   
-    const {activeCategory, currentPage} = usePagination()
+    const {activeCategory, currentPage} = useShopParams()
     const LIMIT = 20;
+    const [searchParams] = useSearchParams()
+    const query = searchParams.get('search') || ''
+    const dispatch = useAppDispatch()
     
 
     const dicpatch = useAppDispatch()
@@ -29,13 +35,25 @@ export default function Catalog(){
                     activeCategory,
                     skip,
                     limit: LIMIT,
+                    search: query || null
              }))
     }, 
     
-    [activeCategory, dicpatch, currentPage  ])
+    [activeCategory, dicpatch, currentPage, query])
 
     if(status === 'loading') return <p>Trying loading products...</p>
     if (status === 'failed') return <p>{error}</p>
+
+    const handleAddToCart= (product:ProductItem)=>{
+        const itemForCart : CartItemParams = {
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            image: product.thumbnail,
+            quantity: 1,
+        }
+       dispatch(addToCart(itemForCart))
+    }
 
     
     return(
@@ -44,7 +62,7 @@ export default function Catalog(){
             <ul className={style.catalogList}>
                 {products?.map((product)=>
                     <li key={product.id} className={style.catalogListItem}>
-                        <Link to={`${product.id}`}>
+                        <Link to={`${product.id}`} className={style.catalogItemLink}>
                             <div className={style.catalogItemWrapper}>
                                 <div className={style.catalogItemContent}>
                                     <div className={style.catalogItemImg}>
@@ -54,10 +72,10 @@ export default function Catalog(){
                                         <p>{product.title}</p>                                       
                                         <p>${product.price}</p>
                                     </div>
-                                </div>
-                                <CustomButton className={style.addBtn}>+ Add to cart</CustomButton> 
+                                </div>                       
                             </div>
                         </Link>
+                        <CustomButton className={style.addBtn} onClick={()=> handleAddToCart(product)}>+ Add to cart</CustomButton> 
                     </li>
                 )}
             </ul>

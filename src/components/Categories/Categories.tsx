@@ -5,11 +5,16 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 import { useEffect } from 'react'
 import CustomButton from '../CustomButton'
 import {useShopParams} from '../../hooks/useShopParams'
+import { useSearchParams } from 'react-router-dom';
+
 
 export default function Categories(){
 
     
     const dispatch = useAppDispatch()
+    const [searchParams] = useSearchParams()
+    const activeCategory = searchParams.get('category')
+    const {setCategory} = useShopParams()
     
     const {categories, catalogItem} = useAppSelector(shopState)
     const popularCategories = ['beauty', 'fragrances', 'furniture', 'laptops'];
@@ -23,15 +28,13 @@ export default function Categories(){
     }, [categories.length, dispatch])
 
 
-    const {activeCategory, setCategory} = useShopParams()
-
-    const highlightActiveCategory = catalogItem ? catalogItem.category : activeCategory
+    const highlightActiveCategory = activeCategory || catalogItem?.category;
 
 
     return(
         <div className={style.categories}>
              <div className={style.backBtnWrapper}>
-                <CustomButton onClick={() => setCategory(null)} className={`${activeCategory ? style.backBtn : style.hidden}`}>
+                <CustomButton onClick={() => setCategory(null)} className={`${highlightActiveCategory  ? style.backBtn : style.hidden}`}>
                     to All Products 
                     <MdKeyboardArrowRight className={style.backBtnArrow}/>
                 </CustomButton>

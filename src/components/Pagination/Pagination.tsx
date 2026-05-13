@@ -2,7 +2,7 @@ import style from './Pagination.module.css'
 import CustomButton from '../CustomButton'
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import {usePagination} from '../../hooks/useShopParams'
+import {useShopParams} from '../../hooks/useShopParams'
 
 type CurrentPageProps = { 
     totalPages: number;
@@ -11,7 +11,7 @@ type CurrentPageProps = {
 
 export default function Pagination({ totalPages}:CurrentPageProps) {
   
-    const {currentPage, setPage } = usePagination()
+    const {currentPage, setPage } = useShopParams()
 
     return (
         <div className = {style.currentPageBtns}>
