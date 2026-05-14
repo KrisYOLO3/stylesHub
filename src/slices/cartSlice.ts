@@ -20,10 +20,24 @@ const cartSlice = createSlice({
             } else {
                 state.items.push(action.payload)
             }
+        },
+        addQuantiy: (state, action:PayloadAction<number>)=>{
+            const existingItem = state.items.find((item)=> item.id === action.payload)
+            if (existingItem){
+                existingItem.quantity += 1
+            }
+
+        },
+        distractQuantiy: (state, action:PayloadAction<number>)=>{
+            const existingItem = state.items.find((item)=> item.id === action.payload)
+            if (existingItem){
+                existingItem.quantity -= 1
+            }
+
         }
     }
 })
 
-export const {addToCart} = cartSlice.actions
+export const {addToCart, addQuantiy, distractQuantiy} = cartSlice.actions
 export const cartReducer = cartSlice.reducer
 export const cartState = (state: RootState) => state.cart

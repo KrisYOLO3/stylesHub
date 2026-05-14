@@ -20,7 +20,7 @@ export  function useShopParams(){
 
         const queryString = params.toString()  
         const path = queryString ? `/shop?${queryString}` : `/shop`     
-        navigate(`shop${path}`, { replace: true })  
+        navigate(`${path}`, { replace: true })  
     }
 
 
