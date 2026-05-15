@@ -18,8 +18,6 @@
     display: flex;
     align-items: center;
 }
-
-
 .account{
     display: flex;
     align-items: center;
@@ -60,5 +58,16 @@
   width: 100%;
   margin-left: 8px;
   padding: 8px 12px;
+}
+
+.userActions{
+  display: flex;
+  align-items: center;
+}
+
+.cartIcon{
+  font-size: 30px;
+  margin-right: 15px;
+  cursor: pointer;
 }
 

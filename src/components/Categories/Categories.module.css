@@ -1,10 +1,11 @@
 .categories{
   flex: 0 0 350px;
-  padding: 0 20px 0 40px;
+  padding: 0 0 0 40px;
   position: sticky;
   top: 20px;
   align-self: flex-start;  /* Запрещает  растягивать блок по высоте */
   height: fit-content;
+ 
 }
 
 .categories h2{
@@ -24,6 +25,7 @@
 
 .categoryItem.active{
   background-color: var(--primary-color);
+  color: var(--active-class-color)
 }
 
 .backBtn {

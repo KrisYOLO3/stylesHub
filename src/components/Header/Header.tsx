@@ -4,13 +4,19 @@ import { RiAccountPinCircleLine } from "react-icons/ri";
 import {useMatch} from 'react-router-dom'
 import { useAppSelector } from '../../hooks/hook';
 import InputSearchForm from './InputSearchForm';
+import { BsCart4 } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Header() {
 
   const path = useMatch('/shop/*')
- 
   const userName = useAppSelector(state=>state.authForm.userName)
+  const navigate = useNavigate();
+
+  const handleCartClick = () => {
+    navigate('/cart'); 
+};
 
 
   return (
@@ -28,11 +34,14 @@ export default function Header() {
 
       {path && <InputSearchForm />}
 
-      <CustomButton className={style.account}>
-        <RiAccountPinCircleLine className={style.accountBtn}/>
-        {path ? `Hello, ${userName}` : `ACCAUNT`}
-      </CustomButton>
-          
+
+      <div className={style.userActions}>
+        {path && <BsCart4 className = {style.cartIcon} onClick={handleCartClick}/>}
+        <CustomButton className={style.account}>
+          <RiAccountPinCircleLine className={style.accountBtn}/>
+          {path ? `Hello, ${userName}` : `ACCAUNT`}
+        </CustomButton>
+      </div>
         
       </header>
   )

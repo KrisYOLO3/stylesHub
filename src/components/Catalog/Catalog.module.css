@@ -58,9 +58,17 @@
   border-radius: 8px;
   padding: 10px;
   margin-top: 20px;
+  color: var(--active-class-color)
 }
 
 .addBtn:hover{
   background-color: var(--primary-hover);
+}
+
+.inCartBtns{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   font-size: 18px;
 }
 

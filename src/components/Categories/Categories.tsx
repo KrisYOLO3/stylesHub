@@ -30,10 +30,11 @@ export default function Categories(){
 
     const highlightActiveCategory = activeCategory || catalogItem?.category;
 
+ 
 
     return(
         <div className={style.categories}>
-             <div className={style.backBtnWrapper}>
+            <div className={style.backBtnWrapper}>
                 <CustomButton onClick={() => setCategory(null)} className={`${highlightActiveCategory  ? style.backBtn : style.hidden}`}>
                     to All Products 
                     <MdKeyboardArrowRight className={style.backBtnArrow}/>

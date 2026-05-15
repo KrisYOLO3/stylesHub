@@ -1,6 +1,5 @@
 import style from './ShopLayout.module.css'
 import Categories from "../../components/Categories/Categories";
-import ShoppingCart  from "../../components/ShoppingCart/ShoppingCart"; 
 import { Outlet } from "react-router-dom";
 
 export default function ShopLayout() {
@@ -14,13 +13,10 @@ export default function ShopLayout() {
               <Outlet /> 
             </div>
           </div>
-          <aside className={style.cartSidebar}>
-            <ShoppingCart />
-          </aside>
         </div>
       </main>
     </div>
-  )
+  ) 
 }
 
 

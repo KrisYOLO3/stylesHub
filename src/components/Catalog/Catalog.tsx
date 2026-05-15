@@ -84,9 +84,9 @@ export default function Catalog(){
                                     ?<CustomButton className={style.addBtn} onClick={()=> handleAddToCart(product)}>
                                         Add to cart
                                     </CustomButton> 
-                                    : <div className={style.addBtn}>
+                                    : <div className={`${style.addBtn} ${style.inCartBtns}` }>
                                         <button className = {style.distractQuantityBtn} onClick={() => dispatch(distractQuantiy(existingItem.id))} disabled={existingItem.quantity===0}>-</button>
-                                        <span>{`${existingItem.quantity} In Cart`}</span>
+                                        <span>{`(${existingItem.quantity}) In Cart`}</span>
                                         <button className = {style.addQuantityBtn} onClick={() => dispatch(addQuantiy(existingItem.id))}>+</button> 
                                     </div>}         
                             </li>}
