@@ -5,21 +5,31 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hook'
 import { useEffect } from 'react'
 import CustomButton from '../CustomButton'
 import {useShopParams} from '../../hooks/useShopParams'
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useParams} from 'react-router-dom';
 
 
 export default function Categories(){
-
     
     const dispatch = useAppDispatch()
     const [searchParams] = useSearchParams()
-    const activeCategory = searchParams.get('category')
     const {setCategory} = useShopParams()
-    
     const {categories, catalogItem} = useAppSelector(shopState)
-    const popularCategories = ['beauty', 'fragrances', 'furniture', 'laptops'];
-    const filteredCategories = categories.filter((category)=>popularCategories.includes(category.slug) )
 
+
+    // highlighte active category
+    const categoryInUrl = searchParams.get('category')
+    const {id} = useParams()
+    const productCategory = catalogItem?.category;
+    const itemInState = !!id
+
+    const highlightActiveCategory = itemInState
+        ? productCategory
+        : categoryInUrl
+    
+
+    const popularCategories = ['beauty', 'fragrances', 'furniture', 'laptops'];
+    const filteredCategories = categories.filter((category)=>popularCategories.includes(category.slug))
+   
 
     useEffect(()=>{
         if (categories.length === 0){
@@ -27,10 +37,6 @@ export default function Categories(){
         }
     }, [categories.length, dispatch])
 
-
-    const highlightActiveCategory = activeCategory || catalogItem?.category;
-
- 
 
     return(
         <div className={style.categories}>

@@ -6,7 +6,7 @@ import { Link} from 'react-router-dom'
 import CustomButton from '../CustomButton'
 import Pagination from '../Pagination/Pagination'
 import {useShopParams} from '../../hooks/useShopParams' 
-import { useSearchParams } from 'react-router-dom'
+import { useSearch } from '../../hooks/useSearch'
 import type { CartItemParams, ProductItem } from '../../types/types'
 import { addToCart, cartState } from '../../slices/cartSlice'
 import { shopState } from '../../slices/catalogSlice'
@@ -19,14 +19,10 @@ export default function Catalog(){
   
     const {activeCategory, currentPage} = useShopParams()
     const LIMIT = 20;
-    const [searchParams] = useSearchParams()
-    const query = searchParams.get('search') || ''
-    const dispatch = useAppDispatch()
-    const {items} = useAppSelector(cartState )
-  
-    
+    const {searchQuery: query} =  useSearch();
 
-    const dicpatch = useAppDispatch()
+    const {items} = useAppSelector(cartState )
+    const dispatch = useAppDispatch()
     const {products, status, error, total} = useAppSelector(shopState)
 
     const totalPages = total ? Math.ceil(total / LIMIT) : 1;
@@ -35,15 +31,14 @@ export default function Catalog(){
 
     useEffect(()=>{
         const skip = (currentPage - 1) * LIMIT 
-        dicpatch(fetchProducts({
+        dispatch(fetchProducts({
                     activeCategory,
                     skip,
                     limit: LIMIT,
                     search: query || null
              }))
     }, 
-    
-    [activeCategory, dicpatch, currentPage, query])
+    [activeCategory, dispatch, currentPage, query])
 
     if(status === 'loading') return <p>Trying loading products...</p>
     if (status === 'failed') return <p>{error}</p>
@@ -74,21 +69,21 @@ export default function Catalog(){
                                                 <img src={product.thumbnail} alt="product" />
                                             </div>
                                             <div className={style.catalogItemNotes}>
-                                                <p>{product.title}</p>                                       
+                                                <p className={style.title}><b>{product.title}</b></p>                                       
                                                 <p>${product.price}</p>
                                             </div>
                                         </div>                       
                                     </div>
                                 </Link>
-                                {!existingItem  
-                                    ?<CustomButton className={style.addBtn} onClick={()=> handleAddToCart(product)}>
+                                {existingItem && existingItem?.quantity >0
+                                    ?(<div className={`${style.inCartBtns}` }>
+                                        <CustomButton className = {`${style.distractQuantityBtn}`} onClick={() => dispatch(distractQuantiy(existingItem.id))} disabled={existingItem.quantity===0}>-</CustomButton>
+                                        <span className={`${style.inCartText}`}>{`(${existingItem.quantity}) In Cart`}</span>
+                                        <CustomButton className = {`btn ${style.addQuantityBtn}`} onClick={() => dispatch(addQuantiy(existingItem.id))}>+</CustomButton> 
+                                    </div>) 
+                                    : (<CustomButton className={`${style.addBtn}`} onClick={()=> handleAddToCart(product)}>
                                         Add to cart
-                                    </CustomButton> 
-                                    : <div className={`${style.addBtn} ${style.inCartBtns}` }>
-                                        <button className = {style.distractQuantityBtn} onClick={() => dispatch(distractQuantiy(existingItem.id))} disabled={existingItem.quantity===0}>-</button>
-                                        <span>{`(${existingItem.quantity}) In Cart`}</span>
-                                        <button className = {style.addQuantityBtn} onClick={() => dispatch(addQuantiy(existingItem.id))}>+</button> 
-                                    </div>}         
+                                    </CustomButton>)}         
                             </li>}
                 )}
             </ul>
@@ -96,3 +91,5 @@ export default function Catalog(){
         </div>
     )
 }
+
+

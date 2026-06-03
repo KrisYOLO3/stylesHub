@@ -1,13 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from '../store/store';
+import type {AuthStateProps} from '../types/types'
 
-
-type AuthStateProps = {
-    userName: string | null,
-    userEmail: string | null,
-    isAuthenticated: boolean,
-    isLoginMode: boolean, 
-}
 
 const initialState:AuthStateProps = {
     userName: null,

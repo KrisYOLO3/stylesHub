@@ -1,40 +1,45 @@
 import { CiSearch } from "react-icons/ci"
 import style from '../Header/Header.module.css'
 import CustomInput from "../CustomInput"
-import{useState, useRef, useEffect} from 'react'
-import { useSearchParams} from "react-router-dom"
-import useSearch from "../../hooks/useSearch"
+import{useState, useEffect} from 'react'
+import { useNavigate, useLocation} from "react-router-dom"
+import {useSearch} from "../../hooks/useSearch"
 
 export default function InputSearchForm() {
 
-  const [searchParams] = useSearchParams()
   const {searchQuery, updateSearchQuery } = useSearch();
   const [draft, setDraft] = useState(searchQuery)
-
-  const paramsRef = useRef(searchParams)
-
-  useEffect(()=>{
-    paramsRef.current = searchParams
-  }, [searchParams]) 
+  const navigate = useNavigate()
+  const location = useLocation()
 
 
-  // при изменении урла синхронизируем ипут с параметром search
+  //  синхронизируем урл и инпут
   useEffect(()=>{
     setDraft(searchQuery)
   }, [searchQuery])
 
-  useEffect(()=>{
 
-    // if (draft === paramsRef.current.get('search')) return;
-    const timer = setTimeout(()=>{
-    updateSearchQuery(draft)
+  useEffect(() => {
+    if (!location.pathname.startsWith('/shop')) return; 
+    if (draft === searchQuery) return;
 
-    }, 500)
-    return ()=> clearTimeout(timer)
-  }, [draft, updateSearchQuery])
+    const timer = setTimeout(() => {
+      updateSearchQuery(draft.trim());
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [draft, searchQuery, updateSearchQuery, location.pathname]);
 
 
-  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDraft(value); 
+
+    if (!location.pathname.startsWith('/shop') && value.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(value.trim())}`, { replace: true });
+    }
+  };
+
 
   return (
     <form className={style.searchForm} onSubmit={(e) => e.preventDefault()}>
@@ -44,7 +49,7 @@ export default function InputSearchForm() {
                       type='text' 
                       className={style.searchWrapper}
                       value={draft}
-                      onChange={(e) => setDraft(e.target.value)}
+                      onChange={handleInputChange}
           />
     </form>
   )

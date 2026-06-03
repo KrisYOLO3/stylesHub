@@ -1,22 +1,31 @@
 .categories{
-  flex: 0 0 350px;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 300px;      
+  max-width: 350px;
   padding: 0 0 0 40px;
-  position: sticky;
+
   top: 20px;
-  align-self: flex-start;  /* Запрещает  растягивать блок по высоте */
-  height: fit-content;
- 
+  font-size: 18px;
 }
 
 .categories h2{
   margin-bottom: 20px;
 }
 
+.categoriesList{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .categoryItem{
+  display: block;
   padding: 10px 15px;
   background-color: transparent;
   border-radius: 8px;
   text-transform: capitalize;
+  width: 100%;
 }
 
 .categoryItem:hover{
@@ -32,7 +41,6 @@
   transition: opacity 0.3s ease; 
   opacity: 1;
   visibility: visible;
-  height: 40px; 
   margin-bottom: 10px;
   color: var(--primary-hover);
   font-weight: bold;
@@ -53,3 +61,60 @@
 .backBtnArrow{
   font-size: 20px;
 }
+
+
+@media (max-width: 1023px){
+
+  .categories >h2{
+    display: none;
+  }
+  .categoriesList{
+    flex-direction: row;
+  }
+
+  .categories{
+    flex: 0 1 60%;      
+    flex-direction: row;
+    max-width:60%; 
+    margin: 20px auto 0;
+    padding: 0;
+    align-items: center;
+   
+  }
+
+  .backBtnWrapper{
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .backBtnArrow{
+    font-size: 24px;
+  }
+
+  .backBtn {
+    margin-bottom: 0;
+ }
+}
+
+@media (max-width: 768px) {
+
+  .categories{
+    flex-direction: column; 
+    padding: 0 20px;
+    font-size: 16px;
+    flex: 1 1 100%;   
+    max-width: 100%;      
+    width: 100%;
+    text-align: center;
+  }
+
+  .categoriesList{
+    justify-content: center;
+  }
+  .categoryItem{
+    padding: 10px;
+    width: auto;
+}
+
+}
+

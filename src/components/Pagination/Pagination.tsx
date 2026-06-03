@@ -16,11 +16,11 @@ export default function Pagination({ totalPages}:CurrentPageProps) {
     return (
         <div className = {style.currentPageBtns}>
             <CustomButton className = {style.prevBtn} onClick= {()=>setPage(currentPage-1)} disabled = {currentPage ===1}>
-                <MdKeyboardArrowLeft /> 
+                <MdKeyboardArrowLeft className = {style.iconPagination}/> 
             </CustomButton>
             <p className={style.currentPage}>{currentPage}</p>
             <CustomButton className = {style.nextBtn} onClick= {()=>setPage(currentPage+1)} disabled = {currentPage ===totalPages} >
-                <MdKeyboardArrowRight />
+                <MdKeyboardArrowRight className = {style.iconPagination} />
             </CustomButton>
         </div>
     )

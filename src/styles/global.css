@@ -3,6 +3,7 @@
 :root {
 
   --text-main: #1A1A1A;
+  --text-secondary: #fff;
   --bg-color: #f9fafb;
   --primary-color:  #00796B;
   --primary-hover: #006666;
@@ -13,8 +14,8 @@
   --text-muted: #6b7280;
   --error: #922203;
   --valid: #05470d;
+  --cartSpan: #ff4d4f;
   --active-class-color: #fff;
- 
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -24,9 +25,15 @@
   box-sizing: border-box;
 }
 
+html, body{
+  width: 100%; 
+  min-height: 100%; 
+}
+
 body{
   font-family: 'Inter', sans-serif;
-  color: var(--text-main)
+  color: var(--text-main);
+  font-size: 16px;
 }
 
 a{
@@ -41,8 +48,8 @@ button{
   cursor: pointer;
   background-color: transparent;
   font-family: inherit;
-  color: inherit;
-  font-size: 16px;
+  color: var(--text-secondary);
+  font-size: 18px;
 }
 
 ul{

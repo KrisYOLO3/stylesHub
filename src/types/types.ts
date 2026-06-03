@@ -1,7 +1,14 @@
+export type FetchProductsResponse ={
+  products: ProductItem[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+
 export type ProductItem = {
   id: number;
   title: string;
-  image: string [];
   brand: string;
   price: string;
   description: string;
@@ -10,28 +17,28 @@ export type ProductItem = {
   category: string;
 }
 
-export type FetchProductsResponse ={
-  products: ProductItem[];
-  total: number;
-  skip: number;
-  limit: number;
-}
-
-export type ShopState = {
-  products: ProductItem [];
-  categories: string [],
-  catalogItem: ProductItem | null;
-  total: number, 
-  status: 'idle' | 'loading' | 'succeeded' | 'failed'
-  error: null | string,
-}
-
 export type FetchProductsParams = {
   activeCategory: string | null;
   skip: number;
   limit: number;
   signal?: AbortSignal; 
   search: string | null;
+}
+
+
+export type CategoryProps = {
+  slug: string,
+  name: string;
+}
+
+
+export type ShopState = {
+  products: ProductItem [];
+  categories: CategoryProps [],
+  catalogItem: ProductItem | null;
+  total: number, 
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'
+  error: null | string,
 }
 
 export type FetchProductByIdParams = {
@@ -51,4 +58,11 @@ export type CartState = {
   items: CartItemParams [];
   totalCount: number;
   totalPrice: number;
+}
+
+export type AuthStateProps = {
+  userName: string | null,
+  userEmail: string | null,
+  isAuthenticated: boolean,
+  isLoginMode: boolean, 
 }

@@ -3,7 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
+
 
 .prevBtn, .nextBtn{
   padding: 10px 15px;
@@ -11,6 +13,7 @@
   border-radius: 8px;
   display: flex;
   align-items: center;
+  color: var(--text-main)
 }
 
 .currentPage{

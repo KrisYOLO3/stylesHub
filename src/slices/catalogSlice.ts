@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk, type PayloadAction} from '@reduxjs/toolkit'
 import type { RootState } from '../store/store';
 import {productsService} from '../api/productsService';
-import {type ShopState, type FetchProductsResponse, type FetchProductsParams, type ProductItem, type FetchProductByIdParams} from '../types/types';
+import type {ShopState, FetchProductsResponse, FetchProductsParams, ProductItem } from '../types/types';
 
 
 const inintialState:ShopState  = {

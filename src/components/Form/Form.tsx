@@ -16,9 +16,7 @@ export default function Form() {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const formState = useAppSelector(authFormState)
-  const { isLoginMode } = formState;
-
+  const { isLoginMode } = useAppSelector(authFormState)
 
   type LoginForm = {
     name: string,
@@ -27,7 +25,7 @@ export default function Form() {
 }
   const {register, handleSubmit, formState:{errors}} = useForm<LoginForm>()
 
-    const submit : SubmitHandler<LoginForm> = (data)=>{
+  const submit : SubmitHandler<LoginForm> = (data)=>{
 
     const usersInStorge = localStorage.getItem('usersData')
     const users = usersInStorge ? JSON.parse(usersInStorge) : [ ]
@@ -41,19 +39,19 @@ export default function Form() {
     }
 
     const existingUser = users.find((user: User)=> user.name === data.name)
-    if(existingUser){
-      dispatch(loginSuccess(existingUser))
-      return navigate('/shop');
-    }else{
-      dispatch(toggleMode())
-    }
- }
+      if(existingUser){
+        dispatch(loginSuccess(existingUser))
+        return navigate('/shop', {replace:true});
+      }else{
+        dispatch(toggleMode())
+      }
+}
 
   const validateName = {
     required: 'Name is required',
     minLength: {
       value: 5,
-      message: 'Name is too short (min 2 chars)'
+      message: 'Name is too short (min 5 chars)'
     },
     maxLength:{
       value: 20,
@@ -88,8 +86,6 @@ export default function Form() {
     message: 'Invalid email address'
     }
   }
-
-
 
   return (
     <div className = {style.formWrapper}>

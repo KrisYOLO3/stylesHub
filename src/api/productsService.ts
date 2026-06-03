@@ -21,7 +21,7 @@ export const productsService = {
             params: {limit, skip, q: search},
             signal,
         });
-    return response.data;
+        return response.data;
     },
 
      fetchCategories: async() : Promise<string[]>=>{
