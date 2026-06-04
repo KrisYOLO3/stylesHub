@@ -12,17 +12,17 @@ type User = {
   password: string;
 }
 
+type LoginForm = {
+  name: string,
+  email : string,
+  password: string,
+}
+
 export default function Form() {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { isLoginMode } = useAppSelector(authFormState)
-
-  type LoginForm = {
-    name: string,
-    email : string,
-    password: string,
-}
   const {register, handleSubmit, formState:{errors}} = useForm<LoginForm>()
 
   const submit : SubmitHandler<LoginForm> = (data)=>{
@@ -44,7 +44,7 @@ export default function Form() {
         return navigate('/shop', {replace:true});
       }else{
         dispatch(toggleMode())
-      }
+    }
 }
 
   const validateName = {

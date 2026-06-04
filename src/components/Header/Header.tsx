@@ -22,7 +22,6 @@ export default function Header() {
     navigate('/cart'); 
   };
 
-
   return (
     <header className={style.header}>
       
