@@ -1,5 +1,5 @@
 import axios from "axios";
-import {type FetchProductsParams, type FetchProductsResponse, type ProductItem, type FetchProductByIdParams} from '../types/types';
+import type {FetchProductsParams, FetchProductsResponse, ProductItem, FetchProductByIdParams, CategoryProps} from '../types/types';
 
 const api = axios.create({
   baseURL: "https://dummyjson.com/products",
@@ -24,7 +24,7 @@ export const productsService = {
         return response.data;
     },
 
-     fetchCategories: async() : Promise<string[]>=>{
+     fetchCategories: async() : Promise<CategoryProps[]>=>{
         const response = await api.get(`/categories`)
         return response.data;
     },
