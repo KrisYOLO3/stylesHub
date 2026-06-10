@@ -3,12 +3,9 @@ import { FaOpencart } from "react-icons/fa6";
 import { GiShoppingCart } from "react-icons/gi";
 import CustomButton from '../CustomButton';
 import {useNavigate} from 'react-router-dom'
-import {authFormState} from '../../slices/formSlice'
-import { useAppSelector } from '../../hooks/hook';
 
 export default function EmptyCart() {
 
-    const {isAuthenticated} = useAppSelector(authFormState)
 
     const navigate = useNavigate()
 

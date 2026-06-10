@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk, type PayloadAction} from '@reduxjs/toolkit'
 import type { RootState } from '../store/store';
 import {productsService} from '../api/productsService';
-import type {ShopState, FetchProductsResponse, FetchProductsParams, ProductItem } from '../types/types';
+import type {ShopState, FetchProductsResponse, FetchProductsParams, ProductItem, CategoryProps  } from '../types/types';
 
 
 const inintialState:ShopState  = {
@@ -75,7 +75,7 @@ export const fetchProductById = createAsyncThunk<ProductItem, number>('products/
 })
 
 // load categories
-export const fetchCategories = createAsyncThunk<string[]>('products/fetchCategories', async()=>{
+export const fetchCategories = createAsyncThunk<CategoryProps []>('products/fetchCategories', async()=>{
     const response = await productsService.fetchCategories()
     console.log(response)
     return response
