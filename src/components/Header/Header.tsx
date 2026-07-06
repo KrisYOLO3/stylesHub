@@ -41,9 +41,9 @@ export default function Header() {
         {isShopPage && (
           <div className={style.cartIconWrapper}>
             <BsCart4 className = {style.cartIcon} onClick={handleCartClick}/>
-            {totalCount >0 && <div className={style.totalCountWrapper}>
-                                <span className={style.totalCount}>{totalCount}</span>
-                              </div>}
+            {totalCount > 0 && <div className={style.totalCountWrapper}>
+                                  <span className={style.totalCount}>{totalCount}</span>
+                                </div>}
           </div>
         )}
         <CustomButton className={style.account}>

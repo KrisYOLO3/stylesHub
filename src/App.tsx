@@ -14,15 +14,14 @@ function App() {
   return (
     <Routes>
       <Route path='/' element = {<MainLayout/>}>
-          <Route index element = {<Landing/>}/>
-          <Route path ='shop' element = {<ShopLayout/>}>
-            <Route index element = {<Shop/>}/>
-            <Route path=':id' element = {<CatalogItemDetails/>}/>
-          </Route>
-          <Route path= 'cart' element = {<ShoppingCart/>}/>
-      </Route>
+        <Route index element = {<Landing/>}/>
+        <Route path ='shop' element = {<ShopLayout/>}>
+          <Route index element = {<Shop/>}/>
+          <Route path=':id' element = {<CatalogItemDetails/>}/>
+        </Route>
+        <Route path= 'cart' element = {<ShoppingCart/>}/>
+    </Route>
     </Routes> 
-
   )
 }
 
